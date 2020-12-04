@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { Movies } from '@components';
+import { Page } from '@components';
 
 const App = () => (
-  <Movies />
+  <Page />
 );
 
 export default App;

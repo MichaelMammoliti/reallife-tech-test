@@ -1,0 +1,102 @@
+@import 'globals.scss';
+
+@mixin values($num) {
+  flex-basis: #{100% / $num};
+  width: #{100% / $num};
+}
+
+@mixin size($num) {
+  &--size-#{$num} {
+    @include values($num);
+  }
+}
+
+@mixin viewport-size($viewport, $num) {
+  &--viewport-#{$viewport}-#{$num} {
+    @include values($num);
+  }
+}
+
+.column {
+  flex-basis: auto;
+
+  &--grow {
+    flex-shrink: 0;
+    flex-grow: 1;
+  }
+
+  &--shrink {
+    flex-shrink: 1;
+    flex-grow: 0;
+  }
+
+  @include size(1);
+  @include size(2);
+  @include size(3);
+  @include size(4);
+  @include size(5);
+  @include size(6);
+  @include size(7);
+  @include size(8);
+  @include size(9);
+  @include size(10);
+  @include size(11);
+  @include size(12);
+}
+
+@include viewport(phone) {
+  $size: 'phone';
+
+  .column {
+    @include viewport-size($size, 1);
+    @include viewport-size($size, 2);
+    @include viewport-size($size, 3);
+    @include viewport-size($size, 4);
+    @include viewport-size($size, 5);
+    @include viewport-size($size, 6);
+    @include viewport-size($size, 7);
+    @include viewport-size($size, 8);
+    @include viewport-size($size, 9);
+    @include viewport-size($size, 10);
+    @include viewport-size($size, 11);
+    @include viewport-size($size, 12);
+  }
+}
+
+@include viewport(tablet) {
+  $size: 'tablet';
+
+  .column {
+    @include viewport-size($size, 1);
+    @include viewport-size($size, 2);
+    @include viewport-size($size, 3);
+    @include viewport-size($size, 4);
+    @include viewport-size($size, 5);
+    @include viewport-size($size, 6);
+    @include viewport-size($size, 7);
+    @include viewport-size($size, 8);
+    @include viewport-size($size, 9);
+    @include viewport-size($size, 10);
+    @include viewport-size($size, 11);
+    @include viewport-size($size, 12);
+  }
+}
+
+@include viewport(desktop) {
+  $size: 'desktop';
+
+  .column {
+    @include viewport-size($size, 1);
+    @include viewport-size($size, 2);
+    @include viewport-size($size, 3);
+    @include viewport-size($size, 4);
+    @include viewport-size($size, 5);
+    @include viewport-size($size, 6);
+    @include viewport-size($size, 7);
+    @include viewport-size($size, 8);
+    @include viewport-size($size, 9);
+    @include viewport-size($size, 10);
+    @include viewport-size($size, 11);
+    @include viewport-size($size, 12);
+  }
+}
