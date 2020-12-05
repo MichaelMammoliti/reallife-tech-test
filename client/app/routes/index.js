@@ -1,7 +1,5 @@
 import Home from './home';
-import AddMovie from './add-movie';
-import Movie from './movie';
-import Search from './search';
+import Movies from './movies';
 
 const routes = [
   {
@@ -9,29 +7,15 @@ const routes = [
     props: {
       path: '/',
       exact: true,
-    }
+    },
   },
   {
-    component: AddMovie,
+    component: Movies,
     props: {
-      path: '/add-movie',
+      path: '/movies/:id',
       exact: true,
-    }
+    },
   },
-  {
-    component: Movie,
-    props: {
-      path: '/movie',
-      exact: true,
-    }
-  },
-  {
-    component: Search,
-    props: {
-      path: '/search',
-      exact: true,
-    }
-  }
 ];
 
 export default routes;

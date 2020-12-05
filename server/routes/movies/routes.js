@@ -1,3 +1,4 @@
+const multer = require('multer');
 const Movies = require('./model');
 
 const route = '/api/movies';
@@ -15,7 +16,7 @@ const getByFilters = async (req, res) => {
     filters.stars = star;
   }
 
-  const result = await Movies.find(filters);
+  const result = await Movies.find(filters).sort({ title: 'asc' });
 
   res.json(result);
 };
@@ -66,16 +67,51 @@ const create = async (req, res) => {
   res.json(result);
 };
 
+const searchBy = async (req, res) => {
+  const { title, star } = req.query;
+
+  const filters = {};
+
+  if (star) {
+    filters.stars = {
+      $regex: star,
+      $options: 'i',
+    };
+  }
+
+  if (title) {
+    filters.title = {
+      $regex: title,
+      $options: 'i',
+    };
+  }
+
+  const result = await Movies.find(filters).sort({ title: 'asc' });
+
+  res.json(result);
+};
+
+const upload = async (req, res) => {
+  console.log(req.file, req.body);
+
+  // const result = await Movies.insertMany(data).sort({ title: 'asc' });
+
+  // res.json(result);
+};
+
+const multerUpload = multer({ dest: './uploads' });
+
 const routes = [
   {
-    route,
-    method: 'post',
-    fn: create,
+    route: `${route}/search`,
+    method: 'get',
+    fn: searchBy,
   },
   {
-    route,
-    method: 'get',
-    fn: getByFilters,
+    route: `${route}/upload`,
+    method: 'post',
+    middleware: multerUpload.single('file'),
+    fn: upload,
   },
   {
     route: `${route}/:id`,
@@ -88,9 +124,14 @@ const routes = [
     fn: remove,
   },
   {
-    route: `${route}/:id`,
-    method: 'delete',
-    fn: remove,
+    route,
+    method: 'post',
+    fn: create,
+  },
+  {
+    route,
+    method: 'get',
+    fn: getByFilters,
   },
 ];
 
