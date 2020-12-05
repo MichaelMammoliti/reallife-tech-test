@@ -1,0 +1,15 @@
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost/movies', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+  useCreateIndex: true,
+});
+
+const db = mongoose.connection;
+
+db.on('error', () => console.error('connection error'));
+db.once('open', () => {
+  console.log('connected');
+});
