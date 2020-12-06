@@ -1,7 +1,6 @@
 @import 'globals.scss';
 
 @mixin values($num) {
-  flex-basis: #{100% / $num};
   width: #{100% / $num};
 }
 
@@ -18,8 +17,6 @@
 }
 
 .column {
-  flex-basis: auto;
-
   &--grow {
     flex-shrink: 0;
     flex-grow: 1;

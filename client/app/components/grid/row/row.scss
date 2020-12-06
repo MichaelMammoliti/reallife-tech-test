@@ -24,20 +24,20 @@
     content: '';
   }
 
-  &__items {
+  & > &__items {
     width: 100%;
     float: left;
     display: flex;
     flex-wrap: wrap;
   }
 
-  &--align-items-center & {
+  &--align-items-center > & {
     &__items {
       align-items: center;
     }
   }
 
-  &--justify-content-center & {
+  &--justify-content-center > & {
     &__items {
       justify-content: center;
     }
