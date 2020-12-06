@@ -11,13 +11,13 @@ Movie Info:
 
 Functions that the system must support:
 
-1. Add movie
-2. Delete movie
-3. Show movie information
-4. Show a list of movies sorted by title in alphabetical order
-5. Find a movie by title.
-6. Find a movie by the name of the actor.
-7. Import of movies from a text file (sample file is attached “sample_movies.txt”).
+1. Add movie - DONE
+2. Delete movie - DONE
+3. Show movie information - DONE
+4. Show a list of movies sorted by title in alphabetical order - DONE
+5. Find a movie by title. - DONE
+6. Find a movie by the name of the actor. - DONE
+7. Import of movies from a text file (sample file is attached “sample_movies.txt”). - DONE
 
 The file must be uploaded via the web interface.
 
