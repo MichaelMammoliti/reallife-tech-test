@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 
@@ -15,9 +16,11 @@ middlewares.forEach((middleware) => {
   app.use(middleware);
 });
 
-routes.forEach(({ route, method, fn }) => {
-  app[method](route, fn);
+routes.forEach(({ route, method, middleware, fn }) => {
+  app[method](route, ...[middleware, fn].filter(Boolean));
 });
+
+app.use(express.static(path.join(__dirname, '../dist')));
 
 app.listen(3000, () => {
   console.log(`Example app listening at http://localhost:3000`);
