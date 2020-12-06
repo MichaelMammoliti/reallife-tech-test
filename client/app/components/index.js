@@ -16,7 +16,6 @@ export { default as AddMovieForm } from './add-movie-form';
 
 // Movie
 export { default as MovieInfo } from './movie-info';
-export { default as Movies } from './movies';
 export { default as MovieList } from './movie-list';
 export { default as MovieListItem } from './movie-list-item';
 export { default as SearchBar } from './search-bar';
