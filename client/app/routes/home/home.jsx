@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { Movies, Header } from '@components';
+import { DefaultPageWrapper } from '@components';
+import { MoviesContainer } from '@containers';
 
 const Home = () => (
-  <>
-    <Header />
-    <Movies />
-  </>
+  <DefaultPageWrapper>
+    <MoviesContainer />
+  </DefaultPageWrapper>
 );
 
 export default Home;
