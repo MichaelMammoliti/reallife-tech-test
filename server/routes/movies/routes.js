@@ -9,19 +9,20 @@ const txtToJs = (filePath) => new Promise((resolve, reject) => {
     }
 
     const obj = data.toString().split('\r\n').reduce((acc, item) => {
-      const [key, value] = item.split(':');
+      const firstIndex = item.indexOf(':');
+      const key = item.slice(0, firstIndex).trim();
+      const value = item.slice(key.length + 1).trim();
       const newKey = camelCase(key);
-      const currentObj = acc[acc.length - 1];
 
-      if (!key || !value) {
+      if (!newKey || !value) {
         return acc;
       }
 
-      if (currentObj[newKey]) {
+      if (acc[acc.length - 1][newKey]) {
         acc.push({});
       }
 
-      currentObj[newKey] = value.trim();
+      acc[acc.length - 1][newKey] = value.trim();
 
       return acc;
     }, [{}]);
@@ -49,7 +50,9 @@ const getByFilters = async (req, res) => {
     filters.stars = star;
   }
 
-  const result = await Movies.find(filters).sort({ title: 'asc' });
+  const result = await Movies.find(filters)
+    .collation({ locale: 'en' })
+    .sort({ title: 'asc' });
 
   res.json(result);
 };
@@ -119,7 +122,9 @@ const searchBy = async (req, res) => {
     };
   }
 
-  const result = await Movies.find(filters).sort({ title: 'asc' });
+  const result = await Movies.find(filters)
+    .collation({ locale: 'en' })
+    .sort({ title: 'asc' });
 
   res.json(result);
 };
@@ -129,6 +134,7 @@ const upload = (req, res) => {
     if (!err) {
       const data = await txtToJs(req.file.path);
       const response = await Movies.insertMany(data);
+
       res.json(response);
     }
   });
