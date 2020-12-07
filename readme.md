@@ -1,20 +1,20 @@
-##HOW
-npm i
-npm start
-npm run server
+## HOW
+- `npm i`
+- `npm start`
+- `npm run server`
 
-Project instructions
+## Project instructions
 
 You need to implement a web application for storing movie information. Alongside with the implementation, it is required to provide a document explaining the architecture of the application and containing application start instructions.
 
-Movie Info:
+### Movie Info:
 1. Unique identifier
 2. Movie title
 3. Year of release
 4. Format (VHS, DVD, Blu-Ray)
 5. List of actors ("Name and surname of the actor")
 
-Functions that the system must support:
+### Functions that the system must support:
 
 1. Add movie - DONE
 2. Delete movie - DONE
@@ -34,5 +34,5 @@ It is advisable to write automated functional tests for the application, it is r
 
 You can find a list o sample test movies here.
 
-How to submit
+### How to submit
 Upload your completed project to your GitHub, and then paste a link to the repository below in the form along with any comments you have about your solution.
