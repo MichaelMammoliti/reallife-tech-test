@@ -44,7 +44,6 @@ const UploadMoviesFormContainer = () => {
         uploadMoviesSuccess(response);
       }
     } catch (e) {
-      console.log(e);
       uploadMoviesRejected();
     }
   };
