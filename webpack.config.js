@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { ProvidePlugin } = require('webpack');
 
 const webpackTemplate = require('./client/webpack/template');
 
@@ -13,6 +14,7 @@ module.exports = (options) => {
     mode: NODE_ENV,
     entry: './client/app/index.jsx',
     output: {
+      publicPath: '/',
       path: path.resolve(__dirname, 'dist'),
       filename: 'assets/js/bundle.js',
     },
@@ -75,9 +77,14 @@ module.exports = (options) => {
       extensions: ['.js', '.jsx'],
       alias: {
         '@components': path.resolve('./client/app/components'),
-      }
+        '@containers': path.resolve('./client/app/containers'),
+        '@routes': path.resolve('./client/app/routes'),
+      },
     },
     plugins: [
+      new ProvidePlugin({
+        fetch: [path.resolve(path.join(__dirname, 'client/app/modules/fetch.js')), 'default'],
+      }),
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
         templateContent: webpackTemplate,
@@ -90,6 +97,13 @@ module.exports = (options) => {
       ] : []),
     ],
     devServer: {
+      proxy: {
+        '/api': {
+          target: 'http://localhost:3000',
+          changeOrigin: true,
+          secure: false,
+        },
+      },
       port: 8080,
       historyApiFallback: true,
       open: true,

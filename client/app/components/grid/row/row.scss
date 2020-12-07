@@ -1,0 +1,50 @@
+
+@mixin spacing($size, $value) {
+  &--spacing-#{$size} {
+    margin-left: -$value;
+  }
+
+  &--spacing-#{$size} > & {
+    &__items {
+      margin-bottom: -$value;
+
+      > * {
+        margin-bottom: $value;
+        padding-left: $value;
+      }
+    }
+  }
+}
+
+.row {
+  &::before,
+  &::after {
+    display: table;
+    width: 100%;
+    content: '';
+  }
+
+  & > &__items {
+    width: 100%;
+    float: left;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &--align-items-center > & {
+    &__items {
+      align-items: center;
+    }
+  }
+
+  &--justify-content-center > & {
+    &__items {
+      justify-content: center;
+    }
+  }
+
+  @include spacing('xs', 5px);
+  @include spacing('s', 10px);
+  @include spacing('n', 15px);
+  @include spacing('m', 50px);
+}

@@ -1,9 +1,12 @@
 import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 
-import { Movies } from '@components';
+import { Page } from '@components';
 
 const App = () => (
-  <Movies />
+  <Router>
+    <Page />
+  </Router>
 );
 
 export default App;
