@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { MovieInfoContainer, DefaultPageWrapper } from '@containers';
-import { Container, Button } from '@components';
+import { MovieInfoContainer } from '@containers';
+import { Container, Button, DefaultPageWrapper } from '@components';
 
 const Movies = () => (
   <DefaultPageWrapper>

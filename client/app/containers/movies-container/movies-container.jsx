@@ -5,21 +5,15 @@ import { MovieList, Section, SearchBar } from '@components';
 import styles from './movies-container.scss';
 
 const FETCH_MOVIES = gql`
-  query movies($filters: MovieFilters) {
-    movies(filters: $filters) {
+  query {
+    movies {
       title
     }
   }
 `;
 
 const MoviesContainer = () => {
-  const fetchMoviesQueryPayload = useQuery(FETCH_MOVIES, {
-    variables: {
-      filters: {
-        title: 'michael',
-      },
-    },
-  });
+  const fetchMoviesQueryPayload = useQuery(FETCH_MOVIES);
 
   const [state, setState] = useState({
     searchType: 'star',

@@ -1,6 +1,4 @@
-const { gql } = require('apollo-server');
-
-const Movies = require('../routes/movies/model');
+const { makeExecutableSchema } = require('@graphql-tools/schema');
 
 const removeMovie = (parent, params) => {
   const { movie } = params;
@@ -14,7 +12,7 @@ const removeMovie = (parent, params) => {
 };
 
 const fetchMovies = (parent, params) => {
-  const { filters } = params;
+  const { filters = {} } = params;
   const { title, star, id } = filters;
 
   const newFilters = {};
@@ -60,7 +58,18 @@ const createMovie = (parent, params) => {
   return instance.save();
 };
 
-const typeDefs = gql`
+const resolvers = {
+  Query: {
+    movies: fetchMovies,
+  },
+
+  Mutation: {
+    createMovie,
+    removeMovie,
+  },
+};
+
+const typeDefs = `
   type Movie {
     _id: String,
     title: String,
@@ -109,18 +118,7 @@ const typeDefs = gql`
   }
 `;
 
-const resolvers = {
-  Query: {
-    movies: fetchMovies,
-  },
-
-  Mutation: {
-    createMovie,
-    removeMovie,
-  },
-};
-
-module.exports = {
+module.exports = makeExecutableSchema({
   typeDefs,
   resolvers,
-};
+});
