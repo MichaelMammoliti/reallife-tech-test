@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --env.NODE_ENV=development --env.development --progress",
-    "server": "nodemon ./server/index.js",
+    "server": "nodemon ./server/graphql/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --env.NODE_ENV=production --env.production --progress",
     "build-debug": "webpack --env.NODE_ENV=production --env.production --env.debug --progress",
@@ -46,10 +46,13 @@
     "webpack-dev-server": "^3.9.0"
   },
   "dependencies": {
+    "@apollo/client": "^3.3.4",
+    "apollo-server": "^2.19.0",
     "body-parser": "^1.19.0",
     "change-case": "^4.1.2",
     "classnames": "^2.2.6",
     "express": "^4.17.1",
+    "graphql": "^15.4.0",
     "mongoose": "^5.11.4",
     "multer": "^1.4.2",
     "nodemon": "^2.0.6",

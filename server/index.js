@@ -4,17 +4,12 @@ const bodyParser = require('body-parser');
 
 require('./mongoose');
 
-const middlewares = require('./middlewares');
 const routes = require('./routes');
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-middlewares.forEach((middleware) => {
-  app.use(middleware);
-});
 
 routes.forEach(({ route, method, fn }) => {
   app[method](route, fn);

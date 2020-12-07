@@ -1,46 +1,67 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { gql, useQuery, useLazyQuery } from '@apollo/client';
 import { MovieList, Section, SearchBar } from '@components';
 
 import styles from './movies-container.scss';
 
+const FETCH_MOVIES = gql`
+  query movies($filters: MovieFilters) {
+    movies(filters: $filters) {
+      title
+    }
+  }
+`;
+
 const MoviesContainer = () => {
+  const fetchMoviesQueryPayload = useQuery(FETCH_MOVIES, {
+    variables: {
+      filters: {
+        title: 'michael',
+      },
+    },
+  });
+
   const [state, setState] = useState({
     searchType: 'star',
   });
 
-  const fetchMoviesPending = () => {
-    setState({
-      ...state,
-      requestStatus: 'pending',
-    });
-  };
+  // const fetchMoviesPending = () => {
+  //   setState({
+  //     ...state,
+  //     requestStatus: 'pending',
+  //   });
+  // };
 
-  const fetchMoviesSuccess = (movies) => {
-    setState({
-      ...state,
-      requestStatus: 'success',
-      movies,
-    });
-  };
+  // const fetchMoviesSuccess = (movies) => {
+  //   setState({
+  //     ...state,
+  //     requestStatus: 'success',
+  //     movies,
+  //   });
+  // };
 
-  const fetchMoviesRejected = () => {
-    setState({
-      ...state,
-      requestStatus: 'rejected',
-    });
-  };
+  // const fetchMoviesRejected = () => {
+  //   setState({
+  //     ...state,
+  //     requestStatus: 'rejected',
+  //   });
+  // };
 
-  const fetchMovies = async () => {
-    fetchMoviesPending();
+  // const fetchMovies = async () => {
+  //   fetchMoviesPending();
 
-    const movies = await fetch('api/movies');
+  //   const movies = fetchMoviesQuery({
+  //     variables: {
+  //       filters: {},
+  //     },
+  //   });
 
-    if (movies) {
-      fetchMoviesSuccess(movies);
-    } else {
-      fetchMoviesRejected();
-    }
-  };
+  //   if (movies) {
+  //     fetchMoviesSuccess(movies);
+  //   } else {
+  //     fetchMoviesRejected();
+  //   }
+  // };
 
   const searchMoviesPending = () => {
     setState({
@@ -80,10 +101,6 @@ const MoviesContainer = () => {
     }
   };
 
-  useEffect(() => {
-    fetchMovies();
-  }, []);
-
   const handleSearchBarSubmit = () => {
     searchMovies();
   };
@@ -101,12 +118,6 @@ const MoviesContainer = () => {
     });
   };
 
-  const handleResetFilters = () => {
-
-  };
-
-  const { movies, requestStatus } = state;
-
   return (
     <div className={styles['movies-container']}>
       <Section title="Your Movies">
@@ -115,14 +126,13 @@ const MoviesContainer = () => {
             onSelectChange={handleSearchBarChange}
             onInputChange={handleSearchBarChange}
             onSubmit={handleSearchBarSubmit}
-            onResetFilters={handleResetFilters}
           />
         </div>
         <div className={styles['movies-container__item']}>
-          {(requestStatus === 'success') && (
-            <MovieList movies={movies} />
+          {(!fetchMoviesQueryPayload.loading && fetchMoviesQueryPayload.data) && (
+            <MovieList movies={fetchMoviesQueryPayload.data} />
           )}
-          {(requestStatus === 'pending') && (
+          {(fetchMoviesQueryPayload.loading) && (
             <p>loading</p>
           )}
         </div>
